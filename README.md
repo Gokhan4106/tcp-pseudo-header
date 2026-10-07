@@ -32,3 +32,10 @@ Offloading checksum computation to a small, dependency-free function keeps packe
 UDP transmits a computed checksum of `0x0000` as `0xFFFF` on the wire (RFC 768). This library deliberately does **not** perform that mapping. It returns the mathematical one's-complement sum; a UDP sender must convert a zero result to `0xFFFF` before transmission. TCP has no such special case (RFC 793 forbids a zero TCP checksum).
 
 The `transportLength` field is authoritative and must fit within the provided `segment` view. If it exceeds `segment.length`, the function throws rather than silently truncating. Bytes beyond `transportLength` inside the view are ignored, so you may pass a slice of a larger buffer.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
