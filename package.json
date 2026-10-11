@@ -1,6 +1,6 @@
 {
   "name": "tcp-pseudo-header",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Computes the TCP or UDP checksum using the IPv4 or IPv6 pseudo header over a segment buffer.",
   "type": "module",
   "main": "src/index.js",
